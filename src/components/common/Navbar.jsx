@@ -13,11 +13,11 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { status } = getRestaurantStatus();
   
-  const primaryStroke = "#fbbf24"; // Brand Gold
+  const primaryStroke = "#fbbf24"; 
   const primaryFill = "rgba(251, 191, 36, 0.1)";
 
   const openWhatsApp = () => {
-    const phoneNumber = "919876543210";
+    const phoneNumber = "919620996689";
     const msg = "Hello CafeNova! I have an enquiry regarding my visit.";
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(msg)}`, "_blank");
   };

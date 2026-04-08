@@ -9,8 +9,8 @@ const Reservation = () => {
 
   const contactInfo = [
     { icon: <MapPin size={24} />, title: "Visit Us", detail: "Sector 62, Noida", sub: "Gautam Buddha Nagar, UP" },
-    { icon: <Phone size={24} />, title: "Call Us", detail: "+91 98765 43210", sub: "Mon - Sun, 10am - 11pm" },
-    { icon: <Mail size={24} />, title: "Email Us", detail: "hello@cafenova.com", sub: "Response within 24hrs" }
+    { icon: <Phone size={24} />, title: "Call Us", detail: "+91 96209 96689", sub: "Mon - Sun, 10am - 11pm" },
+    { icon: <Mail size={24} />, title: "Email Us", detail: "info@codeinnovativetechnologies.com", sub: "Response within 24hrs" }
   ];
 
   const policies = [

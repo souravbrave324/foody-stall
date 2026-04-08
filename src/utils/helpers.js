@@ -1,7 +1,3 @@
-/**
- * CafeNova Helper Functions
- */
-
 // 1. Check Restaurant Status (Real-time Opening Hours)
 export const getRestaurantStatus = () => {
   const now = new Date();
