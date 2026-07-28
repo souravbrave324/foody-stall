@@ -7,6 +7,8 @@ import { useCart } from "../../context/CartContext";
 import GlassCard from "../ui/GlassCard";
 import { formatPrice } from "../../utils/helpers";
 
+import { contactInfo } from "../../data/contactInfo";
+
 const HERO_IMAGES = [
   "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b", // Cocktail/Atmosphere
   "https://images.unsplash.com/photo-1559339352-11d035aa65de", // Fine Dining Dish
@@ -116,13 +118,13 @@ const Hero = () => {
         >
           <motion.div 
             variants={fadeIn("down", 0.2)}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-widest mb-8 mx-auto lg:mx-0"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-widest mb-8 mx-auto lg:mx-0 uppercase"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            NOW OPEN IN SECTOR 62, NOIDA
+            NOW OPEN IN {contactInfo.address.toUpperCase()}, {contactInfo.state.toUpperCase()}
           </motion.div>
 
           <motion.h1 
