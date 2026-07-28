@@ -5,6 +5,8 @@ import { AnimatePresence } from "framer-motion";
 import { CartProvider } from "./context/CartContext";
 import { ThemeProvider } from "./context/ThemeContext";
 
+import Lenis from "@studio-freight/lenis";
+
 import Navbar from "./components/common/Navbar";
 import Footer from "./components/common/Footer";
 import CustomCursor from "./components/common/CustomCursor";
@@ -20,11 +22,34 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Accessibility from "./pages/Accessibility";
 
-const ScrollToTop = () => {
+const SmoothScroll = () => {
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 1.5,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    const rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
   return null;
 };
 
@@ -33,14 +58,14 @@ function App() {
     <Router>
       <ThemeProvider>
         <CartProvider>
-        <div className="bg-bg-dark min-h-screen">
-          <CustomCursor />
-          <ThemeToggle />
+          <div className="bg-bg-dark min-h-screen">
+            <SmoothScroll />
+            <CustomCursor />
+            <ThemeToggle />
 
-          <Toaster position="bottom-right" />
+            <Toaster position="bottom-right" />
 
-          <Navbar />
-          <ScrollToTop />
+            <Navbar />
 
           <AnimatePresence mode="wait">
             <Routes>
