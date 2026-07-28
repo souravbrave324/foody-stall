@@ -3,6 +3,9 @@ import { Zap, MessageCircle } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { Frame, FutureButton } from "../ui/FutureNavbar";
 import { getRestaurantStatus } from "../../utils/helpers";
+import { useCart } from "../../context/CartContext";
+
+import { contactInfo } from "../../data/contactInfo";
 
 export const MobileMenuContext = createContext({
   showMenu: false,
@@ -12,12 +15,13 @@ export const MobileMenuContext = createContext({
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { status } = getRestaurantStatus();
+  const { totalCount } = useCart();
   
   const primaryStroke = "#fbbf24"; 
   const primaryFill = "rgba(251, 191, 36, 0.1)";
 
   const openWhatsApp = () => {
-    const phoneNumber = "919620996689";
+    const phoneNumber = contactInfo.phoneRaw;
     const msg = "Hello CafeNova! I have an enquiry regarding my visit.";
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(msg)}`, "_blank");
   };
@@ -26,7 +30,7 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "Menu", path: "/menu" },
     { name: "Reservation", path: "/reservation" },
-    { name: "Order", path: "/order" },
+    { name: "Order", path: "/order", badge: totalCount > 0 ? totalCount : null },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -67,14 +71,21 @@ const Navbar = () => {
                 CAFE<span className="text-yellow-500 italic">NOVA</span>
               </NavLink>
 
-              <div className="hidden lg:flex gap-6 font-bold text-[10px] uppercase tracking-[0.2em]">
+              <div className="hidden lg:flex gap-6 font-bold text-[10px] uppercase tracking-[0.2em] items-center">
                 {navLinks.map((link) => (
                   <NavLink 
                     key={link.path} 
                     to={link.path} 
-                    className={({ isActive }) => isActive ? "text-yellow-500" : "text-white/50 hover:text-white transition-colors"}
+                    className={({ isActive }) => 
+                      `relative flex items-center gap-1 ${isActive ? "text-yellow-500" : "text-white/50 hover:text-white transition-colors"}`
+                    }
                   >
                     {link.name}
+                    {link.badge && (
+                      <span className="bg-yellow-500 text-black text-[9px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center -mt-0.5">
+                        {link.badge}
+                      </span>
+                    )}
                   </NavLink>
                 ))}
               </div>

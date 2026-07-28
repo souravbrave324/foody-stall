@@ -1,16 +1,17 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import ReservationForm from "../components/sections/ReservationForm";
 import { MapPin, Phone, Mail, Clock, ShieldCheck, Star } from "lucide-react";
+import { contactInfo } from "../data/contactInfo";
 
 const Reservation = () => {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
 
-  const contactInfo = [
-    { icon: <MapPin size={24} />, title: "Visit Us", detail: "Sector 62, Noida", sub: "Gautam Buddha Nagar, UP" },
-    { icon: <Phone size={24} />, title: "Call Us", detail: "+91 96209 96689", sub: "Mon - Sun, 10am - 11pm" },
-    { icon: <Mail size={24} />, title: "Email Us", detail: "info@codeinnovativetechnologies.com", sub: "Response within 24hrs" }
+  const contactDetails = [
+    { icon: <MapPin size={24} />, title: "Visit Us", detail: contactInfo.address, sub: contactInfo.state },
+    { icon: <Phone size={24} />, title: "Call Us", detail: contactInfo.phoneDisplay, sub: "Mon - Sun, 10am - 11pm" },
+    { icon: <Mail size={24} />, title: "Email Us", detail: contactInfo.email, sub: "Response within 24hrs" }
   ];
 
   const policies = [
@@ -69,7 +70,7 @@ const Reservation = () => {
 
         {/* 4. Glassmorphic Contact Cards */}
         <div className="mt-32 grid md:grid-cols-3 gap-8">
-          {contactInfo.map((item, i) => (
+          {contactDetails.map((item, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 40 }}

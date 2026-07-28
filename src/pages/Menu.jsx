@@ -4,11 +4,13 @@ import { menuData } from "../data/menuData";
 import GlassCard from "../components/ui/GlassCard";
 import { formatPrice } from "../utils/helpers";
 import { fadeIn, staggerContainer } from "../utils/animations";
-import { Search, Flame, Star, Utensils, Info } from "lucide-react";
+import { Search, Flame, Star, Utensils, Info, ShoppingBag } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 const Menu = () => {
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
+  const { addToCartAndCheckout } = useCart();
 
   const categories = ["All", ...new Set(menuData.map((item) => item.category))];
 
@@ -32,7 +34,7 @@ const Menu = () => {
         >
           <h2 className="text-6xl font-serif text-white mb-4">The Full Collection</h2>
           <p className="text-slate-500 tracking-[0.2em] uppercase text-xs font-bold">
-            Explore 50+ Signature Delicacies
+            Explore 50+ Signature Delicacies &bull; Click Any Dish To Order
           </p>
         </motion.div>
         
@@ -94,7 +96,10 @@ const Menu = () => {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <GlassCard className="group h-[540px] p-0 overflow-hidden flex flex-col border-white/5 hover:border-primary/20 transition-all duration-500">
+                  <GlassCard 
+                    onClick={() => addToCartAndCheckout(item)}
+                    className="group h-[540px] p-0 overflow-hidden flex flex-col border-white/5 hover:border-primary/50 transition-all duration-500 cursor-pointer"
+                  >
                     {/* Image Area */}
                     <div className="relative h-1/2 overflow-hidden">
                       <img 
@@ -102,20 +107,28 @@ const Menu = () => {
                         alt={item.name} 
                         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                       />
+                      
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span className="px-5 py-2.5 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-xl flex items-center gap-2 transform group-hover:scale-105 transition-transform">
+                          <ShoppingBag size={14} /> Click to Order
+                        </span>
+                      </div>
+
                       {/* Badge Overlays */}
-                      <div className="absolute top-4 left-4 flex gap-2">
+                      <div className="absolute top-4 left-4 flex gap-2 z-10">
                         {item.tags.includes("Best Seller") && (
                           <span className="bg-primary/90 backdrop-blur-md text-[10px] text-white px-3 py-1 rounded-full font-bold flex items-center gap-1">
                             <Star size={10} fill="white" /> POPULAR
                           </span>
                         )}
                         {item.tags.includes("Spicy") && (
-                          <span className="bg-orange-500/90 backdrop-blur-md text-[10px] text-white px-3 py-1 rounded-full font-bold flex items-center gap-1">
+                          <span className="bg-orange-500/90 backdrop-blur-md text-[10px] text-white px-3 py-1 rounded-full flex items-center gap-1">
                             <Flame size={10} fill="white" /> SPICY
                           </span>
                         )}
                       </div>
-                      <div className="absolute bottom-4 right-4 bg-black/40 backdrop-blur-xl border border-white/10 px-3 py-1 rounded-lg">
+                      <div className="absolute bottom-4 right-4 bg-black/40 backdrop-blur-xl border border-white/10 px-3 py-1 rounded-lg z-10">
                         <span className="text-primary text-[10px] font-bold">{item.calories}</span>
                       </div>
                     </div>
@@ -127,7 +140,7 @@ const Menu = () => {
                           <p className="text-primary text-[10px] font-bold tracking-widest uppercase mb-1">
                             {item.category}
                           </p>
-                          <h4 className="text-2xl text-white font-serif tracking-wide">{item.name}</h4>
+                          <h4 className="text-2xl text-white font-serif tracking-wide group-hover:text-primary transition-colors">{item.name}</h4>
                         </div>
                         <span className="text-xl text-white font-serif italic">
                           {formatPrice(item.price)}
@@ -136,18 +149,29 @@ const Menu = () => {
 
                       <div className="w-8 h-[1px] bg-primary mb-4 group-hover:w-full transition-all duration-500" />
 
-                      <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                      <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-2">
                         {item.description}
                       </p>
 
                       {/* Nutritional info tag footer */}
-                      <div className="mt-auto flex items-center gap-4 border-t border-white/5 pt-6">
-                        <div className="flex items-center gap-1 text-slate-500 text-[10px] uppercase font-bold tracking-tighter">
-                          <Info size={12} className="text-primary" /> Freshly Prepared
+                      <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-1 text-slate-500 text-[10px] uppercase font-bold tracking-tighter">
+                            <Info size={12} className="text-primary" /> Fresh
+                          </div>
+                          <div className="flex items-center gap-1 text-slate-500 text-[10px] uppercase font-bold tracking-tighter">
+                            <Utensils size={12} className="text-primary" /> Premium
+                          </div>
                         </div>
-                        <div className="flex items-center gap-1 text-slate-500 text-[10px] uppercase font-bold tracking-tighter">
-                          <Utensils size={12} className="text-primary" /> Premium Quality
-                        </div>
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            addToCartAndCheckout(item);
+                          }}
+                          className="text-xs bg-primary/20 text-primary hover:bg-primary hover:text-white px-3 py-1 rounded-full font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1"
+                        >
+                          Add to Order &rarr;
+                        </button>
                       </div>
                     </div>
                   </GlassCard>

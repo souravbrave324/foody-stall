@@ -69,6 +69,15 @@
   ::-webkit-scrollbar-thumb {
     @apply bg-primary/40 rounded-full hover:bg-primary;
   }
+
+  /* Clean Calendar Picker Popup */
+  input[type="date"] {
+    color-scheme: dark;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+    cursor: pointer;
+  }
 }
 
 @layer components {

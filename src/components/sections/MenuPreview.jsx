@@ -4,12 +4,14 @@ import { menuData } from "../../data/menuData";
 import { fadeIn, staggerContainer } from "../../utils/animations";
 import GlassCard from "../ui/GlassCard";
 import { formatPrice } from "../../utils/helpers";
-import { Flame, Leaf, Star, Sparkles } from "lucide-react";
+import { Flame, Leaf, Star, Sparkles, ShoppingBag } from "lucide-react";
+import { useCart } from "../../context/CartContext";
 
 const categories = ["All", "Breakfast", "Starters", "Dinner", "Fast Food", "Sweets", "Drinks"];
 
 const MenuPreview = () => {
   const [activeTab, setActiveTab] = useState("All");
+  const { addToCartAndCheckout } = useCart();
 
   const filteredMenu = activeTab === "All" 
     ? menuData 
@@ -41,8 +43,7 @@ const MenuPreview = () => {
             The <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-300">Culinary</span> Gallery
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Every dish is a prototype of perfection. Explore our meticulously curated menu 
-            designed for those who appreciate the finer details of gastronomy.
+            Every dish is a prototype of perfection. Click any item to instantly add it to your order.
           </p>
         </motion.div>
 
@@ -90,7 +91,10 @@ const MenuPreview = () => {
                 transition={{ duration: 0.5 }}
                 className="h-full"
               >
-                <GlassCard className="group relative overflow-hidden h-[520px] p-0 border-white/5 hover:border-primary/30 transition-all duration-500">
+                <GlassCard 
+                  onClick={() => addToCartAndCheckout(item)}
+                  className="group relative overflow-hidden h-[520px] p-0 border-white/5 hover:border-primary/50 transition-all duration-500 cursor-pointer"
+                >
                   
                   {/* Top Image Section */}
                   <div className="relative h-3/5 overflow-hidden">
@@ -99,8 +103,16 @@ const MenuPreview = () => {
                       alt={item.name} 
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                     />
+                    
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <span className="px-5 py-2.5 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-xl flex items-center gap-2 transform group-hover:scale-105 transition-transform">
+                        <ShoppingBag size={14} /> Click to Order
+                      </span>
+                    </div>
+
                     {/* Floating Info Overlays */}
-                    <div className="absolute top-4 left-4 flex gap-2">
+                    <div className="absolute top-4 left-4 flex gap-2 z-10">
                       {item.tags.includes("Best Seller") && (
                         <div className="bg-primary/90 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1">
                           <Star size={10} fill="white" /> ELITE
@@ -114,7 +126,7 @@ const MenuPreview = () => {
                     </div>
                     
                     {/* Calorie Badge */}
-                    <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 px-4 py-1.5 rounded-full">
+                    <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 px-4 py-1.5 rounded-full z-10">
                       <p className="text-primary text-[10px] font-bold tracking-tighter uppercase">
                         {item.calories}
                       </p>
@@ -128,7 +140,7 @@ const MenuPreview = () => {
                         <p className="text-primary text-[10px] font-bold tracking-[0.2em] uppercase">
                           {item.category}
                         </p>
-                        <h3 className="text-2xl text-white font-serif tracking-wide">{item.name}</h3>
+                        <h3 className="text-2xl text-white font-serif tracking-wide group-hover:text-primary transition-colors">{item.name}</h3>
                       </div>
                       <span className="text-2xl text-white/90 font-serif italic">
                         {formatPrice(item.price)}
@@ -137,16 +149,27 @@ const MenuPreview = () => {
 
                     <div className="w-12 h-[1px] bg-primary/40 group-hover:w-full transition-all duration-700" />
 
-                    <p className="text-slate-400 text-sm leading-relaxed line-clamp-3 group-hover:text-slate-200 transition-colors">
+                    <p className="text-slate-400 text-sm leading-relaxed line-clamp-2 group-hover:text-slate-200 transition-colors">
                       {item.description}
                     </p>
 
-                    {/* Bottom Detail: Hover Reveal Text */}
-                    <div className="pt-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                       <Leaf size={14} className="text-primary" />
-                       <span className="text-[10px] text-slate-500 uppercase tracking-[0.1em]">
-                         Crafted with organic ingredients
-                       </span>
+                    {/* Bottom Detail: Hover Action */}
+                    <div className="pt-2 flex items-center justify-between">
+                       <div className="flex items-center gap-2">
+                         <Leaf size={14} className="text-primary" />
+                         <span className="text-[10px] text-slate-500 uppercase tracking-[0.1em]">
+                           Crafted with organic ingredients
+                         </span>
+                       </div>
+                       <button 
+                         onClick={(e) => {
+                           e.stopPropagation();
+                           addToCartAndCheckout(item);
+                         }}
+                         className="text-[10px] bg-primary/20 text-primary hover:bg-primary hover:text-white px-3 py-1 rounded-full uppercase font-bold tracking-wider transition-all cursor-pointer"
+                       >
+                         Order Now &rarr;
+                       </button>
                     </div>
                   </div>
                 </GlassCard>

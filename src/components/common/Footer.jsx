@@ -8,6 +8,8 @@ import { FaInstagram, FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { cn } from "../../utils/utils"; // Assuming you have a cn utility
 
+import { contactInfo } from "../../data/contactInfo";
+
 const Footer = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -31,6 +33,10 @@ const Footer = () => {
     { Icon: FaTwitter, href: "#", color: "hover:text-sky-400", label: "Twitter" },
     { Icon: FaLinkedin, href: "#", color: "hover:text-blue-700", label: "LinkedIn" },
   ];
+
+  const mapSearchQuery = encodeURIComponent(`${contactInfo.address}, ${contactInfo.state}`);
+  const mapEmbedUrl = `https://maps.google.com/maps?q=${mapSearchQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+  const mapDirectUrl = `https://www.google.com/maps/search/?api=1&query=${mapSearchQuery}`;
 
   return (
     <footer className="relative bg-[#020617] pt-32 pb-8 overflow-hidden border-t border-white/5">
@@ -145,21 +151,27 @@ const Footer = () => {
               <h4 className="text-white font-serif text-xl flex items-center gap-3">
                 <MapPin size={20} className="text-primary" /> The Venue
               </h4>
-              <div className="text-xs font-mono text-primary/60 bg-primary/5 px-4 py-2 rounded-lg border border-primary/10">
-                Lat: 28.6273° N | Long: 77.3725° E
+              <div className="text-xs font-mono text-primary/80 bg-primary/10 px-4 py-2 rounded-lg border border-primary/20">
+                {contactInfo.address}, {contactInfo.state}
               </div>
             </div>
 
-            <div className="relative h-64 w-full rounded-[2.5rem] overflow-hidden group shadow-inner">
-               <div className="absolute inset-0 bg-primary/20 mix-blend-color pointer-events-none z-10 opacity-40 group-hover:opacity-0 transition-opacity duration-700" />
+            <div className="relative h-64 w-full rounded-[2.5rem] overflow-hidden group shadow-inner border border-white/10">
+               <div className="absolute inset-0 bg-primary/10 mix-blend-color pointer-events-none z-10 opacity-40 group-hover:opacity-0 transition-opacity duration-700" />
                <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14008.11482718888!2d77.3703!3d28.6273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDM3JzM4LjMiTiA3N8KwMjInMTMuMSJF!5e0!3m2!1sen!2sin!4v1634567890123!5m2!1sen!2sin"
-                className="w-full h-full grayscale hover:grayscale-0 contrast-125 transition-all duration-1000 scale-105 group-hover:scale-100"
+                title="CafeNova Map Location"
+                src={mapEmbedUrl}
+                className="w-full h-full grayscale hover:grayscale-0 contrast-125 transition-all duration-1000 scale-105 group-hover:scale-100 border-0"
                 loading="lazy"
               />
-              <button className="absolute bottom-6 right-6 z-20 bg-white text-black p-4 rounded-full shadow-2xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all">
+              <a 
+                href={mapDirectUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-6 right-6 z-20 bg-white text-black p-4 rounded-full shadow-2xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all hover:scale-110 flex items-center justify-center"
+              >
                 <ExternalLink size={20} />
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -177,7 +189,7 @@ const Footer = () => {
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase font-black tracking-[0.2em] text-white">Live Service</span>
                 <span className="text-[9px] text-slate-500 font-mono italic">
-                  Kitchen Active • Serving Sector 62, Noida
+                  Kitchen Active • Serving {contactInfo.address}, {contactInfo.state}
                 </span>
               </div>
             </div>
