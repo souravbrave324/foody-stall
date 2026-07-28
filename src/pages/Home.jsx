@@ -4,6 +4,7 @@ import About from "../components/sections/About";
 import MenuPreview from "../components/sections/MenuPreview";
 import Testimonials from "../components/sections/Testimonials";
 import ReservationForm from "../components/sections/ReservationForm";
+import { SplineSceneBasic } from "../components/ui/spline-demo";
 
 const Home = () => {
   return (
@@ -15,6 +16,14 @@ const Home = () => {
     >
       <Hero />
       <About />
+
+      {/* Interactive 3D Spline Scene Showcase */}
+      <section className="py-16 bg-bg-main relative z-10">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <SplineSceneBasic />
+        </div>
+      </section>
+
       <MenuPreview />
       <Testimonials />
       <ReservationForm />
