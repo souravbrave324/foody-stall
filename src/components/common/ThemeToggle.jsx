@@ -14,23 +14,23 @@ const THEME_OPTIONS = [
   {
     id: "morning",
     label: "Peaceful Morning",
-    sub: "Soft golden sunrise & serene ivory tones",
+    sub: "High-contrast golden sunrise & crisp espresso text",
     icon: Sunrise,
-    color: "text-amber-500",
+    color: "text-amber-600",
   },
   {
     id: "afternoon",
-    label: "Hearty Afternoon",
-    sub: "Warm copper, terracotta & bistro ambiance",
+    label: "Wholesome Afternoon",
+    sub: "Warm copper, terracotta & cozy bistro ambiance",
     icon: Sun,
-    color: "text-orange-400",
+    color: "text-orange-500",
   },
   {
     id: "night",
-    label: "Elegant Night",
-    sub: "Deep midnight obsidian & neon indigo luxury",
+    label: "Elegant Moonlight Night",
+    sub: "Luxurious light blue sky & moonlight celestial glow",
     icon: Moon,
-    color: "text-indigo-400",
+    color: "text-sky-400",
   },
 ];
 
