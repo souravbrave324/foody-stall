@@ -96,7 +96,7 @@ const ReservationForm = () => {
   const onSubmit = async (data) => {
     const phoneNumber = contactInfo.phoneRaw;
 
-    const formattedMessage = `*New Table Reservation - CafeNova* 🍽️\n\n*Name:* ${data.name}\n*Email:* ${data.email}\n*Phone:* ${data.phone}\n*Date:* ${data.date || selectedDate}\n*Time:* ${data.time}\n*Guests:* ${data.guests}\n*Note:* ${data.message || "None"}`;
+    const formattedMessage = `*New Table Reservation - Foody Stall* 🍽️\n\n*Name:* ${data.name}\n*Email:* ${data.email}\n*Phone:* ${data.phone}\n*Date:* ${data.date || selectedDate}\n*Time:* ${data.time}\n*Guests:* ${data.guests}\n*Note:* ${data.message || "None"}`;
 
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(formattedMessage)}`;
 

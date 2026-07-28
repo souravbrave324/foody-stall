@@ -1,4 +1,4 @@
-// Central Contact Configuration for CafeNova
+// Central Contact Configuration for Foody Stall
 
 export const contactInfo = {
   // Displayed Phone Number on Contact and Reservation pages

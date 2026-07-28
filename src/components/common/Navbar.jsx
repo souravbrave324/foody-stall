@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const openWhatsApp = () => {
     const phoneNumber = contactInfo.phoneRaw;
-    const msg = "Hello CafeNova! I have an enquiry regarding my visit.";
+    const msg = "Hello Foody Stall! I have an enquiry regarding my visit.";
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(msg)}`, "_blank");
   };
 
@@ -68,7 +68,7 @@ const Navbar = () => {
             
             <div className="flex items-center mt-3 relative z-20">
               <NavLink to="/" className="me-10 font-serif font-black text-xl tracking-tighter text-white">
-                CAFE<span className="text-yellow-500 italic">NOVA</span>
+                FOODY<span className="text-yellow-500 italic"> STALL</span>
               </NavLink>
 
               <div className="hidden lg:flex gap-6 font-bold text-[10px] uppercase tracking-[0.2em] items-center">

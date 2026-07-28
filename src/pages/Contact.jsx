@@ -28,7 +28,7 @@ const Contact = () => {
       return;
     }
 
-    const formattedMessage = `*New Website Inquiry - CafeNova* 📩\n\n*Name:* ${formData.fullName}\n*Email:* ${formData.email}\n*Subject:* ${formData.subject}\n*Message:* ${formData.message}`;
+    const formattedMessage = `*New Website Inquiry - Foody Stall* 📩\n\n*Name:* ${formData.fullName}\n*Email:* ${formData.email}\n*Subject:* ${formData.subject}\n*Message:* ${formData.message}`;
 
     const whatsappURL = `https://wa.me/${contactInfo.phoneRaw}?text=${encodeURIComponent(formattedMessage)}`;
 
