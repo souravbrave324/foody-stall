@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { AnimatePresence } from "framer-motion";
 import { CartProvider } from "./context/CartContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 import Navbar from "./components/common/Navbar";
 import Footer from "./components/common/Footer";
@@ -30,7 +31,8 @@ const ScrollToTop = () => {
 function App() {
   return (
     <Router>
-      <CartProvider>
+      <ThemeProvider>
+        <CartProvider>
         <div className="bg-bg-dark min-h-screen">
           <CustomCursor />
           <ThemeToggle />
@@ -57,8 +59,9 @@ function App() {
           <Footer />
         </div>
       </CartProvider>
-    </Router>
-  );
+    </ThemeProvider>
+  </Router>
+);
 }
 
 export default App;
