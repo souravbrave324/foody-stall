@@ -1,5 +1,5 @@
 import { SplineScene } from "./splite";
-import { Card } from "./card";
+import { Card } from "./Card";
 import { Spotlight } from "./spotlight";
 import { Sparkles, ArrowRight, UtensilsCrossed } from "lucide-react";
 import { Link } from "react-router-dom";
