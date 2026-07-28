@@ -93,6 +93,20 @@
     border-color: rgba(217, 119, 6, 0.25) !important;
   }
 
+  /* Protect Theme Toggle popover text visibility & glass transparency across all themes */
+  .theme-toggle-panel {
+    background-color: rgba(2, 6, 23, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
+  .theme-toggle-panel .text-white,
+  .theme-toggle-panel span,
+  .theme-toggle-panel button {
+    color: #ffffff !important;
+  }
+  .theme-toggle-panel p {
+    color: rgba(241, 245, 249, 0.9) !important;
+  }
+
   /* --- ☀️ 2. WHOLESOME HEARTY AFTERNOON THEME --- */
   .theme-afternoon {
     color-scheme: dark;
