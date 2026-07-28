@@ -6,6 +6,7 @@ import { getRestaurantStatus } from "../../utils/helpers";
 import { useCart } from "../../context/CartContext";
 
 import { contactInfo } from "../../data/contactInfo";
+import Logo from "./Logo";
 
 export const MobileMenuContext = createContext({
   showMenu: false,
@@ -67,8 +68,8 @@ const Navbar = () => {
             />
             
             <div className="flex items-center mt-3 relative z-20">
-              <NavLink to="/" className="me-10 font-serif font-black text-xl tracking-tighter text-white">
-                FOODY<span className="text-yellow-500 italic"> STALL</span>
+              <NavLink to="/" className="me-8">
+                <Logo />
               </NavLink>
 
               <div className="hidden lg:flex gap-6 font-bold text-[10px] uppercase tracking-[0.2em] items-center">

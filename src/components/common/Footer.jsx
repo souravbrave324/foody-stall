@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import { cn } from "../../utils/utils"; // Assuming you have a cn utility
 
 import { contactInfo } from "../../data/contactInfo";
+import Logo from "./Logo";
 
 const Footer = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -90,9 +91,7 @@ const Footer = () => {
           {/* Brand & Socials */}
           <div className="space-y-10">
             <div className="space-y-6">
-              <h2 className="text-4xl font-black tracking-tighter text-white">
-                FOODY<span className="text-primary italic"> STALL</span>
-              </h2>
+              <Logo className="scale-110 origin-left mb-2" />
               <p className="text-slate-400 leading-relaxed text-base">
                 Synthesizing avant-garde culinary techniques with digital sophistication. A sanctuary for the modern connoisseur.
               </p>
